@@ -2,21 +2,21 @@
 
 import random
 
-# Provide a welcome message
+# Welcome message
 def welcome_message():
     print("Welcome to Tic Tac Toe!")
 
-# Make the layout visually appealing
+# Title
 def display_sign():
     print("####################")
     print("#    Tic Tac Toe   #")
     print("####################")
 
-# Create a 3x3 board
+# 3x3 board
 def create_board():
     return [[' ' for _ in range(3)] for _ in range(3)]
 
-# Create a function to take player input
+# Receive and validate player input
 def get_player_input(board):
     while True:
         try:
@@ -31,22 +31,25 @@ def get_player_input(board):
         except ValueError:
             print("Invalid input. Please enter a number between 1 and 9.")
 
-# Create a function to place the player's input on the board
+# Place the player's input on the board
 def place_input_on_board(board, row, col, player):
-    board[row][col] = player
+    if board[row][col] == ' ':
+        board[row][col] = player
+        return True
+    return False
 
-# Create a function to display the board
+# Display the board
 def display_board(board):
     print("---------")
     for row in board:
         print('|'.join(row))
         print("---------")
 
-# Create a function to check if the board is full
+# Check if the board is full
 def is_full(board):
     return all(cell != ' ' for row in board for cell in row)
 
-# Create a function to check if there is a winner
+# Check if there is a winner
 def check_winner(board, player):
     win_conditions = [
         [board[0][0], board[0][1], board[0][2]],
@@ -60,7 +63,7 @@ def check_winner(board, player):
     ]
     return [player, player, player] in win_conditions
 
-# Create a main function to run the game
+# Main function to run the game
 def main():
     welcome_message()
     display_sign()
@@ -79,6 +82,7 @@ def main():
                     row, col = random.randint(0, 2), random.randint(0, 2)
             
             place_input_on_board(board, row, col, current_player)
+                
 
             if check_winner(board, current_player):
                 display_board(board)
